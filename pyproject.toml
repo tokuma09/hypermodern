@@ -1,0 +1,21 @@
+[project]
+name = "random-wikipedia-article"
+version = "0.1.0"
+description = "hypermodern Python project"
+
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "requests>=2.32.3",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hello"]
+
+[scripts]
+random-wikipedia-article = "random_wikipedia_article:main"
+
