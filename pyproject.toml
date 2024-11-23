@@ -25,7 +25,10 @@ http2 = [
 ]
 tests = [
     "pytest>=8.3.3",
-    "pytest-sugar>=1.0.0"
+    "pytest-sugar>=1.0.0",
+    "pytest-httpserver>=0.3.0",
+    "pytest-xdist>=2.5.0",
+    "factory-boy>=3.2.0",
 ]
 docs = [
     "sphinx>=4.3.1",
