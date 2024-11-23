@@ -21,4 +21,5 @@
 
 # Pytest
 
-```python -m pytest```
+```python -m pytest -n auto```
+- pytest-xdistプラグインで並列実行。
