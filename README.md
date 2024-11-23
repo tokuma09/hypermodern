@@ -17,3 +17,9 @@
 
 - パブリッシュ ```uv publish --publish-url https://test.pypi.org/legacy/ --token $TEST_PYPI_TOKEN```
   - testpypiのAPIトークンをTEST_PYPI_TOKENという環境変数にセットしているとする。このときトークンは`pypi-`から始まる。
+
+
+# Pytest
+
+```python -m pytest -n auto```
+- pytest-xdistプラグインで並列実行。
