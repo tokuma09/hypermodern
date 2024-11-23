@@ -1,0 +1,47 @@
+[project]
+name = "hyper_tokuma"
+version = "0.1.4"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Tokuma Suzuki", email = "tokuma.suzuki@jdsc.ai" }
+]
+requires-python = ">=3.9"
+dependencies = [
+    "h2>=4.1.0",
+    "httpx>=0.27.2",
+    "rich>=13.9.4",
+]
+
+[project.entry-points.pytest11]
+hyper-tokuma = "hyper_tokuma.random_wikipedia"
+
+[project.scripts]
+hyper-tokuma = "hyper_tokuma.random_wikipedia:main"
+
+[project.optional-dependencies]
+http2 = [
+    "httpx>=0.27.2",
+]
+tests = [
+    "pytest>=8.3.3",
+    "pytest-sugar>=1.0.0"
+]
+docs = [
+    "sphinx>=4.3.1",
+]
+dev=['hyper_tokuma[tests, docs]']
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hyper_tokuma"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.3",
+]
+
+
