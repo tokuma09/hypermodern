@@ -21,5 +21,7 @@
 
 # Pytest
 
-```python -m pytest -n auto```
-- pytest-xdistプラグインで並列実行。
+```python -m coverage run -m pytest```
+
+```python -m coverage report```
+- カバレッジの表示

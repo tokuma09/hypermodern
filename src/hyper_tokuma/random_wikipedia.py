@@ -29,9 +29,12 @@ def fetch(url):
 
 def show(article, file):
     console = Console(file=file,width=72, highlight=False)
-    console.print(article.title, style="bold", end="\n\n")
-    console.print(textwrap.fill(article.extract, width=72))
+    console.print(article.title, style="bold")
 
-def main():
+    if article.extract:
+        console.print(f"\n{article.extract}")
+
+
+def main(): # pragma: no cover
     article = fetch(API_URL)
     show(article, sys.stdout)
