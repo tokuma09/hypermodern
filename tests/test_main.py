@@ -3,11 +3,7 @@ import sys
 
 import io
 import pytest
-from contextlib import contextmanager
-
-import http.server
-import json
-import threading
+from factory import Factory, Faker
 
 from hyper_tokuma.random_wikipedia import Article, show, fetch
 def test_output():
@@ -30,6 +26,19 @@ articles = [
     Article("Lorem ipsum dolor sit amet, consectetur adipiscing elit", "Nulla mattis volutpat sapien, at dapibus ipsum accumsan eu."),
 ]
 
+class ArticleFactory(Factory):
+    class Meta:
+        model = Article
+
+    title = Faker('sentence')
+    extract = Faker('paragraph')
+
+def parametrized_fixture(*params):
+    return pytest.fixture(params=params)(lambda request: params)
+
+article = parametrized_fixture(*ArticleFactory.build_batch(10))
+
+
 @pytest.fixture(params=articles)
 def article(request):
     return request.param
@@ -43,35 +52,13 @@ def test_final_newline(article, file):
 
 
 
-
-@pytest.fixture(scope='session')
-def http_server():
-    class Handler(http.server.BaseHTTPRequestHandler):
-        def do_GET(self):
-            article = self.server.article
-            data = {"title": article.title, "extract": article.extract}
-            body = json.dumps(data).encode("utf-8")
-
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json")
-            self.send_header("Content-Length", str(len(body)))
-            self.end_headers()
-            self.wfile.write(body)
-
-    with http.server.HTTPServer(('localhost', 0), Handler) as server:
-        thread = threading.Thread(target=server.serve_forever, daemon=True)
-        thread.start()
-        yield server
-        server.shutdown()
-        thread.join()
-
-
 @pytest.fixture(name='serve')
-def serve(http_server):
+def serve(httpserver):
 
     def f(article):
-        http_server.article = article
-        return f"http://localhost:{http_server.server_port}"
+        json = {'title': article.title, 'extract': article.extract}
+        httpserver.expect_request('/').respond_with_json(json)
+        return httpserver.url_for('/')
 
     return f
 
