@@ -6,7 +6,7 @@ readme = "README.md"
 authors = [
     { name = "Tokuma Suzuki", email = "tokuma.suzuki@jdsc.ai" }
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.7"
 dependencies = [
     "h2>=4.1.0",
     "httpx>=0.27.2",
@@ -47,6 +47,7 @@ packages = ["src/hyper_tokuma"]
 source = ['hyper_tokuma', 'tests']
 omit = ['*/__main__.py']
 branch = true
+parallel = true
 
 [tool.coverage.report]
 show_missing =true
