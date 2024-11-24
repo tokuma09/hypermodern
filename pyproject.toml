@@ -6,7 +6,7 @@ readme = "README.md"
 authors = [
     { name = "Tokuma Suzuki", email = "tokuma.suzuki@jdsc.ai" }
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.7"
 dependencies = [
     "h2>=4.1.0",
     "httpx>=0.27.2",
@@ -29,6 +29,7 @@ tests = [
     "pytest-httpserver>=0.3.0",
     "pytest-xdist>=2.5.0",
     "factory-boy>=3.2.0",
+    "coverage[toml]>=6.0.2",
 ]
 docs = [
     "sphinx>=4.3.1",
@@ -41,6 +42,16 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/hyper_tokuma"]
+
+[tool.coverage.run]
+source = ['hyper_tokuma', 'tests']
+omit = ['*/__main__.py']
+branch = true
+parallel = true
+
+[tool.coverage.report]
+show_missing =true
+fail_under = 100
 
 [dependency-groups]
 dev = [
